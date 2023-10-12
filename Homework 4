@@ -1,0 +1,48 @@
+# Jack Piccirillo
+# October 8, 2023
+# ISE 224 -- Homework 4
+import csv
+
+# PART 1
+print("PART 1\n")
+
+# User Input
+fname = input("Enter file name: ");
+# Open File
+f = open(fname)
+# Declare variables for output
+n1 = 0
+n2 = 0
+flist = []
+# Count Number of Lines
+for line in f:
+    n1 += 1
+    # Count Number of Lines containing 'NA'
+    if "NA" in line:
+        n2 += 1
+        # Add lines to list
+        flist.append(line)
+
+# Output
+print('\n' + str(flist[0]) + str(flist[1]) + str(flist[2]))
+print("The file has " + str(n1) + " lines, of which " + str(n2) + " have NA in them")
+
+
+# PART 2
+print("\nPART 2\n")
+
+# Open File
+g = open("CitiBike.csv")
+data = list(csv.reader(g, delimiter=","))
+g.close()
+n1 = len(data)
+count = 1
+while count < n1:
+    if int(data[count][3]) < 10000:
+        print(data[count][3])
+        count += 1
+    else:
+        count += 1
+print(str(data[1]) + str(data[2]) + str(data[3]) + str(data[4]) + str(data[5]))
+print("The file has " + str(n1) + " lines")
+        
