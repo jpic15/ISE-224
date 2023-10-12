@@ -1,0 +1,41 @@
+# Jack Piccirillo
+# October 15, 2023
+# ISE 224 -- Homework 5
+
+import csv
+
+file1 = open("citi_bike.txt", "r") # open citi bike text file for reading
+txtData = [] # create empty list
+for line in file1: # read each line
+    if line[0][0] == '6': # limit list to June
+        parts = line.strip().split() # strip the white space and create list of items
+        txtData.append(parts) # append that line's items list to the data list
+file1.close() # close txt file
+
+file2 = open("citi_bike.csv") # open citi bike csv file
+csvDataTemp = list(csv.reader(file2, delimiter=",")) # create list from csv
+file2.close() # close csv file
+csvData = [] # create empty list
+for line in csvDataTemp: # read each line
+    if line[0][0] == '1': # limit list to January
+        csvData.append(line) # append all lines in January to list
+    
+def print_details(data):
+    print() # print blank line
+    avgSum = 0 # variable to sum daily miles traveled
+    numPasses = 0 # variable to count number of 24-hour passes purchased
+    count = 0 # counter variable for line index
+    for line in data: # read each line
+        avgSum += float(data[count][3]) # add single value to avgSum
+        numPasses += int(data[count][7]) # add single value to numPasses
+        count += 1 # increase index for next line
+    avgMiles = avgSum / count # calculating avgMiles using avgSum and count
+    print("The following data is from " + str(data[0][0]) + " to " + str(data[-1][0]) + "\n") # print range of data
+    print("Average Daily Miles Traveled: " + str(avgMiles)) # print average daily miles traveled
+    print("Total Number of 24-Hour Passes Purchased: " + str(numPasses)) # print number of 24-hour passes purchased
+    
+print_details(txtData) # call print_details for txt file
+print_details(csvData) # call print_details for csv file
+
+print("\nThis is the end of the files processing") # program finished
+        
